@@ -11,6 +11,7 @@ public record UserRequest(
         String password,
 
         @Email
+        @NotBlank
         String email,
 
         String phone
