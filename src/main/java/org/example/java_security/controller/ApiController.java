@@ -7,6 +7,7 @@ import org.example.java_security.dto.UserResponse;
 import org.example.java_security.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,9 +34,13 @@ public class ApiController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest newUser) {
-
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(newUser));
+    }
 
+
+    @GetMapping("/user/me")
+    public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
+        return ResponseEntity.ok(userService.getCurrentUser(authentication));
     }
 
 }

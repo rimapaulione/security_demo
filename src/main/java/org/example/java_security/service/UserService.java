@@ -7,6 +7,7 @@ import org.example.java_security.dto.UserResponse;
 import org.example.java_security.mapper.UserMapper;
 import org.example.java_security.model.User;
 import org.example.java_security.repository.UserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,11 @@ public class UserService {
         User user = userMapper.toEntity(newUser);
         user.setRole("USER");
         user.setPassword(passwordEncoder.encode(newUser.password()));
-
         return userMapper.toResponse(userRepository.save(user));
+    }
+
+    public UserResponse getCurrentUser(Authentication authentication) {
+        String username = authentication.getName();
+        return userMapper.toResponse(userRepository.findByUsername(username));
     }
 }
