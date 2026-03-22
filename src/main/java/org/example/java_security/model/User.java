@@ -20,5 +20,12 @@ public class User {
     private String username;
 
     private String password;
+
     private String role;
+
+    @Column(unique = true)
+    private String email;
+
+    @Column(nullable = true)
+    private String phone;
 }

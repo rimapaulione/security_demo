@@ -13,8 +13,8 @@ public class DataInitializer {
     @Bean
     CommandLineRunner init(UserRepository repository, PasswordEncoder encoder) {
         return args -> {
-            repository.save(new User(null, "user", encoder.encode("user"), "USER"));
-            repository.save(new User(null, "admin", encoder.encode("admin"), "ADMIN"));
+            repository.save(new User(null, "user", encoder.encode("user"), "USER", "user@test.com", "123456789"));
+            repository.save(new User(null, "admin", encoder.encode("admin"), "ADMIN", "admin@test.com", "123456789"));
         };
     }
 }
