@@ -11,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -37,5 +39,19 @@ public class UserService {
     public UserResponse getCurrentUser(Authentication authentication) {
         String username = authentication.getName();
         return userMapper.toResponse(userRepository.findByUsername(username));
+    }
+
+    public List<UserResponse> getUsersForCurrentUser(Authentication authentication) {
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (isAdmin) {
+            return userRepository.findAll().stream()
+                    .map(userMapper::toResponse)
+                    .toList();
+        } else {
+            User user = userRepository.findByUsername(authentication.getName());
+            return List.of(userMapper.toResponse(user));
+        }
     }
 }

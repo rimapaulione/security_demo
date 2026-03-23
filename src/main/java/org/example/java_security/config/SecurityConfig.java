@@ -24,6 +24,7 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers("/api/register").permitAll()
                         .requestMatchers("/api/public").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
