@@ -1,5 +1,6 @@
 package org.example.java_security.config;
 
+import org.example.java_security.model.Role;
 import org.example.java_security.model.User;
 import org.example.java_security.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -13,8 +14,8 @@ public class DataInitializer {
     @Bean
     CommandLineRunner init(UserRepository repository, PasswordEncoder encoder) {
         return args -> {
-            repository.save(new User(null, "user", encoder.encode("user"), "USER", "user@test.com", "123456789"));
-            repository.save(new User(null, "admin", encoder.encode("admin"), "ADMIN", "admin@test.com", "123456789"));
+            repository.save(new User(null, "user", encoder.encode("user"), Role.USER, "user@test.com", "123456789"));
+            repository.save(new User(null, "admin", encoder.encode("admin"), Role.ADMIN, "admin@test.com", "123456789"));
         };
     }
 }

@@ -33,4 +33,5 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(newUser.password()));
         return userMapper.toResponse(userRepository.save(user));
     }
+
 }
