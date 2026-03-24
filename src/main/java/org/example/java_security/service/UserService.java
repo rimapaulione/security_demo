@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.java_security.dto.UserResponse;
 import org.example.java_security.exception.UserNotFoundException;
 import org.example.java_security.mapper.UserMapper;
+import org.example.java_security.model.Role;
 import org.example.java_security.model.User;
 import org.example.java_security.repository.UserRepository;
 import org.springframework.security.core.Authentication;
@@ -29,7 +30,7 @@ public class UserService {
     public List<UserResponse> getUsersForCurrentUser(Authentication authentication) {
 
         boolean isAdmin = authentication.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(a -> a.getAuthority().equals("ROLE_" + Role.ADMIN.name()));
 
         if (isAdmin) {
             return userRepository.findAll().stream()

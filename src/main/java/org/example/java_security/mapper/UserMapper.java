@@ -2,6 +2,7 @@ package org.example.java_security.mapper;
 
 import org.example.java_security.dto.UserRequest;
 import org.example.java_security.dto.UserResponse;
+import org.example.java_security.model.Role;
 import org.example.java_security.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,4 +15,5 @@ public interface UserMapper {
     @Mapping(target = "password", ignore = true)
     User toEntity(UserRequest request);
     UserResponse toResponse(User user);
+
 }
