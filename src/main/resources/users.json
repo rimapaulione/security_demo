@@ -1,6 +1,37 @@
 [
-  { "username": "user", "password": "user", "email": "user@test.com", "phone":
-  "123456789", "role": "USER" },
-  { "username": "admin", "password": "admin", "email": "admin@test.com", "phone":
-  "123456789", "role": "ADMIN" }
+  {
+    "username": "user",
+    "password": "user",
+    "email": "user@test.com",
+    "phone": "123456789",
+    "role": "USER"
+  },
+  {
+    "username": "admin",
+    "password": "admin",
+    "email": "admin@test.com",
+    "phone": "123456789",
+    "role": "ADMIN"
+  },
+  {
+    "username": "manager1",
+    "password": "manager1",
+    "email": "manager1@test.com",
+    "phone": "987654321",
+    "role": "MANAGER"
+  },
+  {
+    "username": "manager2",
+    "password": "manager2",
+    "email": "manager2@test.com",
+    "phone": "987654322",
+    "role": "MANAGER"
+  },
+  {
+    "username": "user2",
+    "password": "user2",
+    "email": "user2@test.com",
+    "phone": "123456780",
+    "role": "USER"
+  }
 ]

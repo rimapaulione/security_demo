@@ -22,6 +22,9 @@ public class DataInitializer {
             if (repository.count() > 0) return;
 
             InputStream input = getClass().getResourceAsStream("/data/users.json");
+            if (input == null) {
+                throw new IllegalStateException("users.json not found in resources");
+            }
             List<User> users = objectMapper.readValue(input, new
                     TypeReference<List<User>>() {
                     });
