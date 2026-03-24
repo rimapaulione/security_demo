@@ -12,15 +12,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/users")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     private final AdminService adminService;
 
-    @PutMapping("/users/{id}/role")
-    public ResponseEntity<UserResponse> changeRole(
+    @PutMapping("/{id}/role")
+    public ResponseEntity<UserResponse> changeUserRole(
             @PathVariable Long id,
             @Valid @RequestBody RoleUpdateRequest newRole,
             Authentication authentication) {
@@ -28,7 +28,7 @@ public class AdminController {
                 authentication));
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(
             @PathVariable Long id,
             Authentication authentication) {
