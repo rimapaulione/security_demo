@@ -3,14 +3,15 @@ package org.example.java_security.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.example.java_security.dto.RoleUpdateRequest;
 import org.example.java_security.dto.UserResponse;
 import org.example.java_security.event.UserDeleteEvent;
 import org.example.java_security.event.UserRoleChangeEvent;
 import org.example.java_security.exception.UserNotFoundException;
 import org.example.java_security.mapper.UserMapper;
-import org.example.java_security.dto.RoleUpdateRequest;
 import org.example.java_security.model.User;
 import org.example.java_security.repository.UserRepository;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class AdminService {
     private final ApplicationEventPublisher publisher;
 
     @Transactional
+    @CacheEvict(value = {"users", "usersSummary", "reports", "currentUser"}, allEntries = true)
     public UserResponse changeUserRole(Long id, RoleUpdateRequest newRole, Authentication authentication) {
 
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -46,6 +48,7 @@ public class AdminService {
     }
 
     @Transactional
+    @CacheEvict(value = {"users", "usersSummary", "reports", "currentUser"}, allEntries = true)
     public void deleteUser(Long id, Authentication authentication) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
         checkNotSelf(authentication, user);
