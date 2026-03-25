@@ -21,7 +21,7 @@ public class DataInitializer {
         return args -> {
             if (repository.count() > 0) return;
 
-            InputStream input = getClass().getResourceAsStream("/data/users.json");
+            InputStream input = getClass().getResourceAsStream("/users.json");
             if (input == null) {
                 throw new IllegalStateException("users.json not found in resources");
             }
