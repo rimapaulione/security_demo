@@ -8,6 +8,7 @@ import org.example.java_security.mapper.UserMapper;
 import org.example.java_security.model.Role;
 import org.example.java_security.model.User;
 import org.example.java_security.repository.UserRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-
+    @Cacheable(value = "currentUser", key = "#authentication.name")
     public UserResponse getCurrentUser(Authentication authentication) {
         String username = authentication.getName();
         return userMapper.toResponse(userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("User '" + username + "' not found")));
-
     }
 
+    @Cacheable(value = "users", key = "#authentication.name")
     public List<UserResponse> getUsersForCurrentUser(Authentication authentication) {
 
         boolean isAdmin = authentication.getAuthorities().stream()

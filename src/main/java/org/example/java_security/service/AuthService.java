@@ -10,6 +10,7 @@ import org.example.java_security.mapper.UserMapper;
 import org.example.java_security.model.Role;
 import org.example.java_security.model.User;
 import org.example.java_security.repository.UserRepository;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class AuthService {
     private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
+    @CacheEvict(value = {"users", "usersSummary", "reports", "currentUser"}, allEntries = true)
     public UserResponse create(final UserRequest newUser) {
 
         if (userRepository.existsByUsername(newUser.username())) {
