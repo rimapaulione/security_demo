@@ -20,6 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+
     public UserResponse getCurrentUser(Authentication authentication) {
         String username = authentication.getName();
         return userMapper.toResponse(userRepository.findByUsername(username)
